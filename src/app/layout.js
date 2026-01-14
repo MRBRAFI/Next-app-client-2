@@ -20,6 +20,8 @@ export const metadata = {
   description: "My first ever NEXT assignment",
 };
 
+import GlobalLoader from "@/components/GlobalLoader";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
@@ -27,6 +29,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
+          <GlobalLoader />
           <Navbar></Navbar>
           {children}
           <Footer></Footer>
@@ -36,3 +39,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function AddProduct() {
-  const { user } = useAuth();
+  const { user, setLoading: setGlobalLoading } = useAuth();
   const [formData, setFormData] = useState({
     skillName: "",
     category: "",
@@ -19,7 +19,6 @@ export default function AddProduct() {
     slotsAvailable: "",
   });
 
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export default function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setGlobalLoading(true);
     setMessage("");
 
     try {
@@ -52,6 +51,7 @@ export default function AddProduct() {
       if (!res.ok) throw new Error("Failed to add product");
 
       const data = await res.json();
+      toast.success("Course creation successfull");
       setFormData({
         skillName: "",
         category: "",
@@ -65,9 +65,9 @@ export default function AddProduct() {
       });
     } catch (err) {
       setMessage("Error adding product: " + err.message);
+      toast.error(err.message);
     } finally {
-      toast.success("Course creation successfull");
-      setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
@@ -128,10 +128,10 @@ export default function AddProduct() {
           <button
             type="submit"
             className="w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-lg shadow-md"
-            disabled={loading}
           >
-            {loading ? "Adding..." : "Add Course"}
+            Add Course
           </button>
+
 
           {/* Message */}
           {message && <p className="text-center mt-3">{message}</p>}

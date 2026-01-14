@@ -7,13 +7,13 @@ import Swal from "sweetalert2";
 import PrivateRoute from "@/components/PrivateRoute";
 
 export default function MyCourses() {
-  const { user, loading } = useAuth();
+  const { user, loading, setLoading: setGlobalLoading } = useAuth();
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     if (!loading && user) {
       const fetchCourses = async () => {
+        setGlobalLoading(true);
         try {
           const res = await fetch("https://next-app-server.vercel.app/users", {
             cache: "no-store",
@@ -26,12 +26,14 @@ export default function MyCourses() {
           setFilteredCourses(myCourses);
         } catch (err) {
           console.error("Failed to fetch courses:", err);
+        } finally {
+          setGlobalLoading(false);
         }
       };
 
       fetchCourses();
     }
-  }, [user, loading]);
+  }, [user, loading, setGlobalLoading]);
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -44,7 +46,7 @@ export default function MyCourses() {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setDeletingId(id);
+        setGlobalLoading(true);
         try {
           const res = await fetch(
             `https://next-app-server.vercel.app/users/${id}`,
@@ -71,19 +73,12 @@ export default function MyCourses() {
             icon: "error",
           });
         } finally {
-          setDeletingId(null);
+          setGlobalLoading(false);
         }
       }
     });
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-white">
-        <span className="loading loading-ring loading-xl"></span>
-      </div>
-    );
-  }
 
   return (
     <PrivateRoute>
@@ -139,11 +134,11 @@ export default function MyCourses() {
                 {/* Delete Button */}
                 <button
                   onClick={() => handleDelete(course._id)}
-                  disabled={deletingId === course._id}
                   className="hover:cursor-pointer bg-purple-500 hover:bg-red-600 text-white px-3 py-1 rounded font-semibold text-sm"
                 >
-                  {deletingId === course._id ? "Deleting..." : "Delete"}
+                  Delete
                 </button>
+
               </div>
             ))}
           </div>

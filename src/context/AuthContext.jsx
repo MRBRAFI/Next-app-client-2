@@ -24,7 +24,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const signInUser = (email, password) => {
     setLoading(true);
@@ -32,14 +32,17 @@ export function AuthProvider({ children }) {
   };
 
   const logInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logoutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
   const googleSignIn = () => {
+    setLoading(true);
     return signInWithPopup(auth, provider);
   };
 

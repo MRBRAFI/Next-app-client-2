@@ -2,24 +2,33 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function AllProducts() {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const { setLoading } = useAuth();
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const res = await fetch("https://next-app-server.vercel.app/users", {
-        cache: "no-store",
-      });
-      const data = await res.json();
-      setCourses(data);
-      setFilteredCourses(data);
+      setLoading(true);
+      try {
+        const res = await fetch("https://next-app-server.vercel.app/users", {
+          cache: "no-store",
+        });
+        const data = await res.json();
+        setCourses(data);
+        setFilteredCourses(data);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchCourses();
-  }, []);
+  }, [setLoading]);
 
   useEffect(() => {
     const filtered = courses.filter(

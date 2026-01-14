@@ -28,14 +28,6 @@ export default function Home() {
     fetchUsers();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-white">
-        <span className="loading loading-ring loading-xl"></span>
-      </div>
-    );
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-black font-sans flex-col">
       <div className="my-20">

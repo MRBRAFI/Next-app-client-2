@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiPushbullet } from "react-icons/si";
 
 export default function CTA() {
@@ -19,21 +20,13 @@ export default function CTA() {
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-              <a
+              <Link
                 href="/products"
                 className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-black font-semibold transition"
                 aria-label="Get started with CourseVerse"
               >
                 Start Learning
-              </a>
-
-              <a
-                href="/courses"
-                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-gray-700 text-gray-200 hover:bg-gray-800 transition"
-                aria-label="Browse all courses"
-              >
-                Browse Courses
-              </a>
+              </Link>
             </div>
 
             <div className="mt-3 text-sm text-gray-400 space-y-1">

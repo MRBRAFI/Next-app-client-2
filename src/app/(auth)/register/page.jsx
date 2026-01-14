@@ -21,10 +21,10 @@ export default function Login() {
         setUser(res.user);
         toast.success("Account creation successful");
         router.push("/");
-        setLoading(false);
       })
       .catch((err) => {
         toast.error("Please enter valid credentials");
+        setLoading(false);
       });
   };
 
@@ -35,7 +35,10 @@ export default function Login() {
         setUser(res.user);
         router.push("/");
       })
-      .catch(() => {});
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
   };
 
   return (

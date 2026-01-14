@@ -11,11 +11,16 @@ export default function Login() {
   const router = useRouter();
 
   const handleGoogleSignIn = () => {
-    googleSignIn().then((res) => {
-      toast.success("Google registration successful");
-      setUser(res.user);
-      router.push("/");
-    });
+    googleSignIn()
+      .then((res) => {
+        toast.success("Google registration successful");
+        setUser(res.user);
+        router.push("/");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
   };
 
   const handleSignIn = (e) => {
@@ -33,6 +38,7 @@ export default function Login() {
       })
       .catch((err) => {
         toast.error("Please enter valid credentials");
+        setLoading(false);
       });
   };
 

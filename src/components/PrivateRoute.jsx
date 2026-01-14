@@ -15,12 +15,9 @@ export default function PrivateRoute({ children }) {
   }, [user, loading, router]);
 
   if (loading || !user) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-white">
-        <span className="loading loading-ring loading-xl"></span>
-      </div>
-    );
+    return null;
   }
+
 
   return <>{children}</>;
 }
