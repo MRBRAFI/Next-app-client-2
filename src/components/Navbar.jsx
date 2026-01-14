@@ -55,7 +55,7 @@ export default function Navbar() {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img src={user.photoURL} alt="Profile image"></img>
+                  <img src={user.photoURL || "https://i.ibb.co.com/VcBGDkVQ/download-1.png"} alt="Profile image"></img>
                 </div>
               </div>
               <ul

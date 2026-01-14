@@ -64,7 +64,7 @@ export default function AllProducts() {
             className="bg-gray-900 rounded-xl shadow-lg p-5 hover:scale-105 hover:shadow-purple-500/40 duration-200"
           >
             <img
-              src={course.image}
+              src={course.image || "https://placehold.co/600x400/111/purple?text=Course+Image"}
               alt={course.skillName}
               className="w-full h-48 object-cover rounded-lg mb-4"
             />

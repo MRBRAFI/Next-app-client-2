@@ -22,7 +22,7 @@ export default function CourseCard({ user }) {
         {/* Image */}
         <div className="w-full h-44 overflow-hidden">
           <img
-            src={user.image}
+            src={user.image || "https://placehold.co/600x400/111/purple?text=Course+Image"}
             alt={user.skillName}
             className="w-full h-full object-cover"
           />

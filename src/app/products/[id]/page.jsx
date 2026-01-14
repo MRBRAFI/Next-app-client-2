@@ -25,7 +25,7 @@ export default async function ProductsDetails({ params }) {
         {/* Left: Image */}
         <div>
           <img
-            src={course.image}
+            src={course.image || "https://placehold.co/1200x800/111/purple?text=Course+Image"}
             alt={course.skillName}
             className="w-full h-full object-cover rounded-xl shadow-lg"
           />
