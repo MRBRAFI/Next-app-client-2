@@ -11,9 +11,7 @@ export default function MyCourses() {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   useEffect(() => {
-    if (!loading && user) {
       const fetchCourses = async () => {
-        setGlobalLoading(true);
         try {
           const res = await fetch("https://next-app-server.vercel.app/users", {
             cache: "no-store",
@@ -32,7 +30,7 @@ export default function MyCourses() {
       };
 
       fetchCourses();
-    }
+    
   }, [user, loading, setGlobalLoading]);
 
   const handleDelete = async (id) => {
@@ -73,7 +71,6 @@ export default function MyCourses() {
             icon: "error",
           });
         } finally {
-          setGlobalLoading(false);
         }
       }
     });
