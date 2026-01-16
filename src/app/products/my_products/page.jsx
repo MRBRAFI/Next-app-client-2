@@ -12,28 +12,27 @@ export default function MyCourses() {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   useEffect(() => {
-      const fetchCourses = async () => {
-        try {
-          const res = await fetch("https://next-app-server.vercel.app/users", {
-            cache: "no-store",
-          });
-          const data = await res.json();
-
-          const myCourses = data.filter(
-            (course) => course.providerEmail === user.email
-          );
-          console.log(data)
-          console.log(myCourses)
-          console.log(myCourses)
-          setFilteredCourses(myCourses);
-        } catch (err) {
-          console.error("Failed to fetch courses:", err);
-        } finally {
-          setGlobalLoading(false);
-        }
-      };
-
-      fetchCourses();
+    if(!loading && user){
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("https://next-app-server.vercel.app/users", {
+          cache: "no-store",
+        });
+        const data = await res.json();
+        
+        const myCourses = data.filter(
+          (course) => course.providerEmail === user.email
+        );             
+        setFilteredCourses(myCourses);
+      } catch (err) {
+        console.error("Failed to fetch courses:", err);
+      } finally {
+        setGlobalLoading(false);
+      }
+    };
+    
+    fetchCourses();
+  }
     
   }, [user, loading, setGlobalLoading]);
 
@@ -81,9 +80,7 @@ export default function MyCourses() {
   };
 
 
-  if(loading){
-    return <Loader></Loader>
-  }
+  
 
   return (
     <PrivateRoute>
