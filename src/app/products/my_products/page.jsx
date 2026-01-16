@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import PrivateRoute from "@/components/PrivateRoute";
+import Loader from "@/components/Loader";
 
 export default function MyCourses() {
   const { user, loading, setLoading: setGlobalLoading } = useAuth();
@@ -21,6 +22,9 @@ export default function MyCourses() {
           const myCourses = data.filter(
             (course) => course.providerEmail === user.email
           );
+          console.log(data)
+          console.log(myCourses)
+          console.log(myCourses)
           setFilteredCourses(myCourses);
         } catch (err) {
           console.error("Failed to fetch courses:", err);
@@ -76,6 +80,10 @@ export default function MyCourses() {
     });
   };
 
+
+  if(loading){
+    return <Loader></Loader>
+  }
 
   return (
     <PrivateRoute>
